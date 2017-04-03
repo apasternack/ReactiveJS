@@ -7,10 +7,14 @@ var gulp = require("gulp"),
 
 gulp.task("scripts:server", () => {
     return gulp.src("./src-server/**/*.js")
+        .pipe($.cached("server"))
         .pipe($.babel())
         .pipe(gulp.dest("./build"));
 })
 
-gulp.task("watch:scripts:server", () => {
+gulp.task("watch:scripts:server", gulp.series(
+    "scripts:server",
+     () => {
     return gulp.watch("./src-server/**/*.js", gulp.series("scripts:server"));
-});
+    }
+));
