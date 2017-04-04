@@ -14,7 +14,18 @@ gulp.task("scripts:server", () => {
 
 gulp.task("watch:scripts:server", gulp.series(
     "scripts:server",
-     () => {
-    return gulp.watch("./src-server/**/*.js", gulp.series("scripts:server"));
-    }
-));
+     () => gulp.watch("./src-server/**/*.js", gulp.series("scripts:server"))));
+
+let bundlers = {};
+function initBundlerWatch(file) {
+    if (bundlers.hasOwnProperty(file))
+        return;
+
+    const bundler = createBundler(file);
+}
+
+function createBundler(file) {
+    const bundler = browserify(file);
+    bundler.transform(babelify);
+    return bundler;
+}
