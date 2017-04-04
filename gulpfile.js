@@ -5,7 +5,7 @@ var gulp = require("gulp"),
     source = require("vinyl-source-stream"),
     browserify = require("bowserify"),
     watchify = require("watchify"),
-    babelify = require("babelify");
+    babelify = require("babelify"),
     path = require("path"),
     fs = require("fs");
 
@@ -34,12 +34,19 @@ gulp.task("watch:scripts:client", () => {
 		.on("change", initBundlerWatch);
 });
 
+gulp.task("watch:scripts", gulp.parallel(
+    "watch:scripts:client",
+    "watch:scripts:server"));
+
+
 let bundlers = {};
 function initBundlerWatch(file) {
     if (bundlers.hasOwnProperty(file))
         return;
 
     const bundler = createBundler(file);
+    bundlers[file] = bundler;
+
     const watcher = watchify(bundler);
     const filename = path.basename(file);
 
