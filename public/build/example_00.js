@@ -14760,4 +14760,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 */
 (0, _jquery2.default)("body").text((0, _moment2.default)().format());
 
+console.log("HEY");
+
 },{"jquery":1,"moment":2}]},{},[3]);
