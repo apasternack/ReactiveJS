@@ -2,11 +2,11 @@
 
 var gulp = require("gulp"),
     $ = require("gulp-load-plugins")(),
-    soucre = require("vinyl-source-stream"),
+    source = require("vinyl-source-stream"),
     browserify = require("bowserify"),
     watchify = require("watchify"),
     babelify = require("babelify");
-    path = require("path");
+    path = require("path"),
     fs = require("fs");
 
 gulp.task("scripts:server", () => {
