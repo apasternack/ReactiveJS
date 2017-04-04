@@ -4,6 +4,7 @@ var gulp = require("gulp"),
     browserify = require("bowserify"),
     watchify = require("watchify"),
     babelify = require("babelify");
+    path = require("path");
 
 gulp.task("scripts:server", () => {
     return gulp.src("./src-server/**/*.js")
@@ -22,6 +23,16 @@ function initBundlerWatch(file) {
         return;
 
     const bundler = createBundler(file);
+    const watcher = watchify(bundler);
+    const filename = path.basename(file);
+
+    function bundle() {
+        return bundler
+            .bundle()
+            .on("error", error => console.error(error))
+            .pipe(source(filename))
+            .pipe(gulp.dest("./public/build"));
+    }
 }
 
 function createBundler(file) {
