@@ -19,7 +19,7 @@ gulp.task("watch:scripts:server", gulp.series(
      () => gulp.watch("./src-server/**/*.js", gulp.series("scripts:server"))));
 
 gulp.task("watch:scripts:client", () => {
-    const files = fs.readdirSync("./scr-client");
+    const files = fs.readdirSync("./src-client");
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
         if (path.extname(file) !== ".js")
