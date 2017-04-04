@@ -1,3 +1,5 @@
+"use strict";
+
 var gulp = require("gulp"),
     $ = require("gulp-load-plugins")(),
     soucre = require("vinyl-source-stream"),
@@ -12,24 +14,25 @@ gulp.task("scripts:server", () => {
         .pipe($.cached("server"))
         .pipe($.babel())
         .pipe(gulp.dest("./build"));
-})
+});
 
 gulp.task("watch:scripts:server", gulp.series(
     "scripts:server",
      () => gulp.watch("./src-server/**/*.js", gulp.series("scripts:server"))));
 
 gulp.task("watch:scripts:client", () => {
-    const files = fs.readdirSync("./src-client");
-    for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        if (path.extname(file) !== ".js")
-            continue;
-        initBundlerWatch(path.join("src-client", file));
-    }
-
-    return gulp.watch("./src-client/**/*.js")
-        .on("change", initBundlerWatch);
-}); 
+	const files = fs.readdirSync("./src-client");
+	for (let i = 0; i < files.length; i++) {
+		const file = files[i];
+		if (path.extname(file) !== ".js")
+			continue;
+			
+		initBundlerWatch(path.join("src-client", file));
+	}
+	
+	return gulp.watch("./src-client/**/*.js")
+		.on("change", initBundlerWatch);
+});
 
 let bundlers = {};
 function initBundlerWatch(file) {
@@ -49,7 +52,7 @@ function initBundlerWatch(file) {
     }
 
     watcher.on("update", bundle);
-    wathcer.on("time", time => console.log(`Built client in ${time}ms`));
+    watcher.on("time", time => console.log(`Built client in ${time}ms`));
 
     bundle();
 }
