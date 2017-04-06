@@ -7,7 +7,12 @@ const $results = $("#results");
 const keyUps$ = Rx.Observable.fromEvent($title, "keyup");
 
 keyUps$.subscribe(e => {
-    console.log(e);
+    getItems(e.target.value)
+        .then(items => {
+            $results.empty();
+            console.log(items);
+            $results.append(items.map(r => $(`<li />`).text(r)));
+        });
 });
 
 // --------------------

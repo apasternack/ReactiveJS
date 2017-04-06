@@ -28005,7 +28005,13 @@ var $results = (0, _jquery2.default)("#results");
 var keyUps$ = _Rx2.default.Observable.fromEvent($title, "keyup");
 
 keyUps$.subscribe(function (e) {
-    console.log(e);
+    getItems(e.target.value).then(function (items) {
+        $results.empty();
+        console.log(items);
+        $results.append(items.map(function (r) {
+            return (0, _jquery2.default)("<li />").text(r);
+        }));
+    });
 });
 
 // --------------------
