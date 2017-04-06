@@ -10335,7 +10335,7 @@ function getItems(title) {
     return new Promise(function (resolve, reject) {
         window.setTimeout(function () {
             resolve([title, "Item 2", "Another " + Math.random()]);
-        }, 500 + Math.random() * 200);
+        }, 500 + Math.random() * 1000);
     });
 }
 

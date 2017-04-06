@@ -22,7 +22,7 @@ function getItems(title) {
     return new Promise((resolve, reject) => {
         window.setTimeout(() => {
             resolve([title, "Item 2", `Another ${Math.random()}`]);
-        }, 500 + (Math.random() * 200));
+        }, 500 + (Math.random() * 1000));
 
     });
 }
