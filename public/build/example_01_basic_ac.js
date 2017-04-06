@@ -10318,6 +10318,7 @@ var $results = (0, _jquery2.default)("#results");
 
 var lastQuery = null;
 var lastTimeout = null;
+var nextQueryId = 0;
 $title.on("keyup", function (e) {
     var title = e.target.value;
     if (title == lastQuery) {
@@ -10328,8 +10329,12 @@ $title.on("keyup", function (e) {
 
     if (lastTimeout) window.clearTimeout(lastTimeout);
 
+    var ourQueryId = ++nextQueryId;
+
     lastTimeout = window.setTimeout(function () {
         getItems(title).then(function (items) {
+            if (ourQueryId != nextQueryId) return;
+
             $results.empty();
 
             var $items = items.map(function (item) {
