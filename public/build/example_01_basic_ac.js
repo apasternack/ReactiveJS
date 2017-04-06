@@ -10317,6 +10317,7 @@ var $title = (0, _jquery2.default)("#title"); /*+++++++++++++++++++++++++++++++ 
 var $results = (0, _jquery2.default)("#results");
 
 var lastQuery = null;
+var lastTimeout = null;
 $title.on("keyup", function (e) {
     var title = e.target.value;
     if (title == lastQuery) {
@@ -10325,14 +10326,18 @@ $title.on("keyup", function (e) {
 
     lastQuery = title;
 
-    getItems(title).then(function (items) {
-        $results.empty();
+    if (lastTimeout) window.clearTimeout(lastTimeout);
 
-        var $items = items.map(function (item) {
-            return (0, _jquery2.default)("<li />").text(item);
+    lastTimeout = window.setTimeout(function () {
+        getItems(title).then(function (items) {
+            $results.empty();
+
+            var $items = items.map(function (item) {
+                return (0, _jquery2.default)("<li />").text(item);
+            });
+            $results.append($items);
         });
-        $results.append($items);
-    });
+    }, 500);
 });
 
 // --------------------

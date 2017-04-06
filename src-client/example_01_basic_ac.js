@@ -4,6 +4,7 @@ const $title = $("#title");
 const $results = $("#results");
 
 let lastQuery = null;
+let lastTimeout = null;
 $title.on("keyup", e => {
     const title = e.target.value;
     if (title == lastQuery) {
@@ -11,15 +12,22 @@ $title.on("keyup", e => {
     }
 
     lastQuery = title;
-    
-    getItems(title)
-        .then(items => {
-            $results.empty();
 
-            const $items = items.map(item => $(`<li />`).text(item));
-            $results.append($items);
+    if (lastTimeout)
+        window.clearTimeout(lastTimeout);
 
-        });
+    lastTimeout = window.setTimeout(() => {
+        getItems(title)
+            .then(items => {
+                $results.empty();
+
+                const $items = items.map(item => $(`<li />`).text(item));
+                $results.append($items);
+
+            });
+
+    }, 500);
+
 });
 
 // --------------------
