@@ -9,15 +9,14 @@ const queries$ = keyUps$
     .map(e => e.target.value)
     .distinctUntilChanged()
     .debounceTime(1)
+    .switchMap(query => getItems(query));  //used to be known as flatMapLatest; virtually identical to mergeMap BUT different in that if a new iteam comes in BEFORE everything was returned by the callback function
     // .mergeMap(query => getItems(query));  same thing as below, longhand
-    .mergeMap(getItems);
+    // .mergeMap(getItems);  //mergeMap is flatMap alias, also SelectMany from LINQ, basically returns a list of items
 
-queries$.subscribe(query => {
-    getItems(query)
-        .then(items => {
+queries$.subscribe(items => {
             $results.empty();
             $results.append(items.map(r => $(`<li />`).text(r)));
-        });
+
 });
 
 // --------------------

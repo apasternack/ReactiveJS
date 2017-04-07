@@ -28005,17 +28005,17 @@ var $results = (0, _jquery2.default)("#results");
 var keyUps$ = _Rx2.default.Observable.fromEvent($title, "keyup");
 var queries$ = keyUps$.map(function (e) {
     return e.target.value;
-}).distinctUntilChanged().debounceTime(1)
+}).distinctUntilChanged().debounceTime(1).switchMap(function (query) {
+    return getItems(query);
+}); //used to be known as flatMapLatest; virtually identical to mergeMap BUT different in that if a new iteam comes in BEFORE everything was returned by the callback function
 // .mergeMap(query => getItems(query));  same thing as below, longhand
-.mergeMap(getItems);
+// .mergeMap(getItems);  //mergeMap is flatMap alias, also SelectMany from LINQ, basically returns a list of items
 
-queries$.subscribe(function (query) {
-    getItems(query).then(function (items) {
-        $results.empty();
-        $results.append(items.map(function (r) {
-            return (0, _jquery2.default)("<li />").text(r);
-        }));
-    });
+queries$.subscribe(function (items) {
+    $results.empty();
+    $results.append(items.map(function (r) {
+        return (0, _jquery2.default)("<li />").text(r);
+    }));
 });
 
 // --------------------
