@@ -8,7 +8,9 @@ const keyUps$ = Rx.Observable.fromEvent($title, "keyup");
 const queries$ = keyUps$
     .map(e => e.target.value)
     .distinctUntilChanged()
-    .debounceTime(500);
+    .debounceTime(1)
+    // .mergeMap(query => getItems(query));  same thing as below, longhand
+    .mergeMap(getItems);
 
 queries$.subscribe(query => {
     getItems(query)

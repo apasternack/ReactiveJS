@@ -28005,7 +28005,9 @@ var $results = (0, _jquery2.default)("#results");
 var keyUps$ = _Rx2.default.Observable.fromEvent($title, "keyup");
 var queries$ = keyUps$.map(function (e) {
     return e.target.value;
-}).distinctUntilChanged().debounceTime(500);
+}).distinctUntilChanged().debounceTime(1)
+// .mergeMap(query => getItems(query));  same thing as below, longhand
+.mergeMap(getItems);
 
 queries$.subscribe(function (query) {
     getItems(query).then(function (items) {
