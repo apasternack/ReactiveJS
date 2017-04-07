@@ -5,12 +5,15 @@ const $title = $("#title");
 const $results = $("#results");
 
 const keyUps$ = Rx.Observable.fromEvent($title, "keyup");
+const queries$ = keyUps$
+    .map(e => e.target.value)
+    .distinctUntilChanged()
+    .debounceTime(500);
 
-keyUps$.subscribe(e => {
-    getItems(e.target.value)
+queries$.subscribe(query => {
+    getItems(query)
         .then(items => {
             $results.empty();
-            console.log(items);
             $results.append(items.map(r => $(`<li />`).text(r)));
         });
 });

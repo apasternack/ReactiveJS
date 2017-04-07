@@ -28003,11 +28003,13 @@ var $title = (0, _jquery2.default)("#title");
 var $results = (0, _jquery2.default)("#results");
 
 var keyUps$ = _Rx2.default.Observable.fromEvent($title, "keyup");
+var queries$ = keyUps$.map(function (e) {
+    return e.target.value;
+}).distinctUntilChanged().debounceTime(500);
 
-keyUps$.subscribe(function (e) {
-    getItems(e.target.value).then(function (items) {
+queries$.subscribe(function (query) {
+    getItems(query).then(function (items) {
         $results.empty();
-        console.log(items);
         $results.append(items.map(function (r) {
             return (0, _jquery2.default)("<li />").text(r);
         }));
