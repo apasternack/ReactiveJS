@@ -11,8 +11,23 @@ const simple$ = new Rx.Observable(observer => {
     }, 1000);
 });
 
+simple$.subscribe(
+    item => console.log(`one.next ${item}`),        //next
+    error => console.log(`one.error ${error}`),     //error
+    () => console.log("one.complete"));             //complete
 
-
+setTimeout(() => {
+    simple$.subscribe({
+        //all three variations of syntax works:
+        next: item => console.log(`two.next ${item}`),  //this one hoists the executions context
+        error(error) {
+            console.log(`two.error ${error}`)
+        },
+        complete: function () {
+            console.log("two.complete");
+        }
+    });
+}, 3000);
 
 
 
