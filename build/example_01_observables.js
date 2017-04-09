@@ -80,8 +80,31 @@ function createInterval$(time) {
     });
 }
 
+function take$(sourceObservable$, amount) {
+    return new _Rx2.default.Observable(function (observer) {
+        var count = 0;
+        var subscription = sourceObservable$.subscribe({
+            next: function next(item) {
+                observer.next(item);
+                if (++count >= amount) observer.complete();
+            },
+            error: function error(_error2) {
+                observer.error(_error2);
+            },
+            complete: function complete() {
+                observer.complete;
+            }
+        });
+
+        return function () {
+            return subscription.unsubscribe();
+        };
+    });
+}
+
 var everySecond$ = createInterval$(1000);
-var subscription = everySecond$.take(3).subscribe(createSubscriber("one"));
+var firstFiveSeconds$ = take$(everySecond$, 5);
+var subscription = firstFiveSeconds$.subscribe(createSubscriber("one"));
 
 // setTimeout(() => {
 //     subscription.unsubscribe();
