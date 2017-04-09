@@ -6,50 +6,74 @@ var _Rx2 = _interopRequireDefault(_Rx);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var simple$ = new _Rx2.default.Observable(function (observer) {
-    console.log("Generating observable");
-    setTimeout(function () {
-        observer.next("an item");
-        setTimeout(function () {
-            observer.next("another item!");
-            observer.complete();
-        }, 1000);
-    }, 1000);
-});
+//--------------------------
+//Part 1
+// const simple$ = new Rx.Observable(observer => {
+//     console.log("Generating observable");
+//     setTimeout(() => {
+//         observer.next("an item");
+//         setTimeout(() => {
+//             observer.next("another item!");
+//             observer.complete();
+//         }, 1000);
+//     }, 1000);
+// });
 
-var error$ = new _Rx2.default.Observable(function (observer) {
-    observer.error(new Error("WHOA!"));
-});
+// const error$ = new Rx.Observable(observer => {
+//     observer.error(new Error("WHOA!"));
+// });
 
-error$.subscribe(function (item) {
-    return console.log("one.next " + item);
-}, //next
-function (error) {
-    return console.log("one.error " + error.stack);
-}, //error
-function () {
-    return console.log("one.complete");
-}); //complete
+// error$.subscribe(
+//     item => console.log(`one.next ${item}`),        //next
+//     error => console.log(`one.error ${error.stack}`),     //error
+//     () => console.log("one.complete"));             //complete
 
-setTimeout(function () {
-    simple$.subscribe({
-        //all three variations of syntax works:
-        next: function next(item) {
-            return console.log("two.next " + item);
-        }, //this one hoists the executions context
-        error: function error(_error) {
-            console.log("two.error " + _error);
-        },
+// setTimeout(() => {
+//     simple$.subscribe({
+//         //all three variations of syntax works:
+//         next: item => console.log(`two.next ${item}`),  //this one hoists the executions context
+//         error(error) {
+//             console.log(`two.error ${error}`)
+//         },
+//         complete: function () {
+//             console.log("two.complete");
+//         }
+//     });
+// }, 3000);
 
-        complete: function complete() {
-            console.log("two.complete");
-        }
-    });
-}, 3000);
 
+//ASIDE
 // const promise = new Promise((resolve, reject) => {
 //     console.log("IN PROMISE");
 //     resolve("hey");
 // });
 
 // promise.then(item => console.log(item));
+
+//--------------------------
+//Part 2
+function createSubscriber(tag) {
+    return {
+        next: function next(item) {
+            console.log(tag + ".next " + item);
+        },
+        error: function error(_error) {
+            console.log(tag + ".error " + (_error.stack || _error));
+        },
+        complete: function complete() {
+            console.log(tag + ".complete");
+        }
+    };
+}
+
+function createInterval$(time) {
+    return new _Rx2.default.Observable(function (observer) {
+        var index = 0;
+        setInterval(function () {
+            observer.next(index++);
+        }, time);
+    });
+}
+
+var everySecond$ = createInterval$(1000);
+everySecond$.subscribe(createSubscriber("one"));
