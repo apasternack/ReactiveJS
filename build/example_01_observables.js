@@ -70,10 +70,15 @@ function createInterval$(time) {
     return new _Rx2.default.Observable(function (observer) {
         var index = 0;
         setInterval(function () {
+            console.log("Generating " + index);
             observer.next(index++);
         }, time);
     });
 }
 
 var everySecond$ = createInterval$(1000);
-everySecond$.subscribe(createSubscriber("one"));
+var subscription = everySecond$.subscribe(createSubscriber("one"));
+
+setTimeout(function () {
+    subscription.unsubscribe();
+}, 3000);

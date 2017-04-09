@@ -61,10 +61,15 @@ function createInterval$(time) {
     return new Rx.Observable(observer => {
         let index = 0;
         setInterval(() => {
+            console.log(`Generating ${index}`);
             observer.next(index++);
         }, time);
     });
 }
 
 const everySecond$ = createInterval$(1000);
-everySecond$.subscribe(createSubscriber("one"));
+const subscription = everySecond$.subscribe(createSubscriber("one"));
+
+setTimeout(() => {
+    subscription.unsubscribe();
+}, 3000);
