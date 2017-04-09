@@ -69,10 +69,14 @@ function createSubscriber(tag) {
 function createInterval$(time) {
     return new _Rx2.default.Observable(function (observer) {
         var index = 0;
-        setInterval(function () {
+        var interval = setInterval(function () {
             console.log("Generating " + index);
             observer.next(index++);
         }, time);
+
+        return function () {
+            clearInterval(interval);
+        };
     });
 }
 
