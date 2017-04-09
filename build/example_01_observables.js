@@ -75,14 +75,14 @@ function createInterval$(time) {
         }, time);
 
         return function () {
-            clearInterval(interval);
+            clearInterval(interval); //clearInterval gets invoked when we unsubscribe
         };
     });
 }
 
 var everySecond$ = createInterval$(1000);
-var subscription = everySecond$.subscribe(createSubscriber("one"));
+var subscription = everySecond$.take(3).subscribe(createSubscriber("one"));
 
-setTimeout(function () {
-    subscription.unsubscribe();
-}, 3000);
+// setTimeout(() => {
+//     subscription.unsubscribe();
+// }, 3500);

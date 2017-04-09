@@ -66,14 +66,14 @@ function createInterval$(time) {
         }, time);
 
         return () => {
-            clearInterval(interval);
+            clearInterval(interval);  //clearInterval gets invoked when we unsubscribe
         }
     });
 }
 
 const everySecond$ = createInterval$(1000);
-const subscription = everySecond$.subscribe(createSubscriber("one"));
+const subscription = everySecond$.take(3).subscribe(createSubscriber("one"));
 
-setTimeout(() => {
-    subscription.unsubscribe();
-}, 3000);
+// setTimeout(() => {
+//     subscription.unsubscribe();
+// }, 3500);
