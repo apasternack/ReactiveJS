@@ -11,9 +11,13 @@ const simple$ = new Rx.Observable(observer => {
     }, 1000);
 });
 
-simple$.subscribe(
+const error$ = new Rx.Observable(observer => {
+    observer.error(new Error("WHOA!"));
+});
+
+error$.subscribe(
     item => console.log(`one.next ${item}`),        //next
-    error => console.log(`one.error ${error}`),     //error
+    error => console.log(`one.error ${error.stack}`),     //error
     () => console.log("one.complete"));             //complete
 
 setTimeout(() => {
@@ -28,6 +32,7 @@ setTimeout(() => {
         }
     });
 }, 3000);
+
 
 
 

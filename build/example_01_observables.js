@@ -17,11 +17,15 @@ var simple$ = new _Rx2.default.Observable(function (observer) {
     }, 1000);
 });
 
-simple$.subscribe(function (item) {
+var error$ = new _Rx2.default.Observable(function (observer) {
+    observer.error(new Error("WHOA!"));
+});
+
+error$.subscribe(function (item) {
     return console.log("one.next " + item);
 }, //next
 function (error) {
-    return console.log("one.error " + error);
+    return console.log("one.error " + error.stack);
 }, //error
 function () {
     return console.log("one.complete");
