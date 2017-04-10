@@ -12,4 +12,4 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //     .take(5)
 //     .subscribe(createSubscriber("interval"));
 
-_Rx2.default.Observable.timer(1000, 500).subscribe((0, _util.createSubscriber)("timer"));
+_Rx2.default.Observable.timer(1000, 500).take(3).subscribe((0, _util.createSubscriber)("timer"));

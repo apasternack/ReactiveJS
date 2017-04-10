@@ -6,5 +6,6 @@ import {createSubscriber} from "./lib/util";
 //     .subscribe(createSubscriber("interval"));
 
 Rx.Observable.timer(1000, 500)
+    .take(3)
     .subscribe(createSubscriber("timer"));
 
