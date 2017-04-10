@@ -28,3 +28,13 @@ Rx.Observable.throw(new Error("HEY"))
 //used to return an empty observable when you need to return an observable but with no value or changes
 Rx.Observable.empty()
     .subscribe(createSubscriber("empty"));
+
+let sideEffect = 0;
+const defer$ = Rx.Observable.defer(() => {
+    sideEffect++;
+    return Rx.Observable.of(sideEffect);
+});
+
+defer$.subscribe(createSubscriber("defer$.one"));
+defer$.subscribe(createSubscriber("defer$.two"));
+defer$.subscribe(createSubscriber("defer$.three"));

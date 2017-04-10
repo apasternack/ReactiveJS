@@ -29,4 +29,15 @@ _Rx2.default.Observable.from([new Error("HEY")]).subscribe((0, _util.createSubsc
 
 _Rx2.default.Observable.throw(new Error("HEY")).subscribe((0, _util.createSubscriber)("error"));
 
+//used to return an empty observable when you need to return an observable but with no value or changes
 _Rx2.default.Observable.empty().subscribe((0, _util.createSubscriber)("empty"));
+
+var sideEffect = 0;
+var defer$ = _Rx2.default.Observable.defer(function () {
+    sideEffect++;
+    return _Rx2.default.Observable.of(sideEffect);
+});
+
+defer$.subscribe((0, _util.createSubscriber)("defer$.one"));
+defer$.subscribe((0, _util.createSubscriber)("defer$.two"));
+defer$.subscribe((0, _util.createSubscriber)("defer$.three"));
