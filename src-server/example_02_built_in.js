@@ -17,3 +17,14 @@ const arr = [1,2,3,4,5];
 Rx.Observable.from(arr)
     .map(i => i * 5)
     .subscribe(createSubscriber("from"));
+
+//passing an error in from or of does not stop execution, throw opperator does
+Rx.Observable.from([new Error("HEY")])
+    .subscribe(createSubscriber("from"));
+
+Rx.Observable.throw(new Error("HEY"))
+    .subscribe(createSubscriber("error"));
+
+//used to return an empty observable when you need to return an observable but with no value or changes
+Rx.Observable.empty()
+    .subscribe(createSubscriber("empty"));

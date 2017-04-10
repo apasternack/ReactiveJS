@@ -23,3 +23,10 @@ var arr = [1, 2, 3, 4, 5];
 _Rx2.default.Observable.from(arr).map(function (i) {
     return i * 5;
 }).subscribe((0, _util.createSubscriber)("from"));
+
+//passing an error in from or of does not stop execution, throw opperator does
+_Rx2.default.Observable.from([new Error("HEY")]).subscribe((0, _util.createSubscriber)("from"));
+
+_Rx2.default.Observable.throw(new Error("HEY")).subscribe((0, _util.createSubscriber)("error"));
+
+_Rx2.default.Observable.empty().subscribe((0, _util.createSubscriber)("empty"));
