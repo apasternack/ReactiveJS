@@ -8,6 +8,8 @@ var _util = require("./lib/util");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_Rx2.default.Observable.interval(500).take(5).subscribe((0, _util.createSubscriber)("interval"));
+// Rx.Observable.interval(500)
+//     .take(5)
+//     .subscribe(createSubscriber("interval"));
 
-_Rx2.default.Observable.timer(5000).subscribe((0, _util.createSubscriber)("timer"));
+_Rx2.default.Observable.timer(1000, 500).subscribe((0, _util.createSubscriber)("timer"));
