@@ -8,6 +8,8 @@ var _util = require("./lib/util");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//Example 1 - simple subject
+
 // const simple$ = new Rx.Subject();
 
 // simple$.subscribe(createSubscriber("simple$"));
@@ -16,14 +18,36 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // simple$.next("WORLD");
 // simple$.complete();
 
-var interval$ = _Rx2.default.Observable.interval(1000).take(5);
-var intervalSubject$ = new _Rx2.default.Subject();
-interval$.subscribe(intervalSubject$);
 
-intervalSubject$.subscribe((0, _util.createSubscriber)("sub1"));
-intervalSubject$.subscribe((0, _util.createSubscriber)("sub2"));
-intervalSubject$.subscribe((0, _util.createSubscriber)("sub3"));
+//example 2 - subject as a proxy
+
+// const interval$ = Rx.Observable.interval(1000).take(5);
+// const intervalSubject$ = new Rx.Subject();
+// interval$.subscribe(intervalSubject$);
+
+// intervalSubject$.subscribe(createSubscriber("sub1"));
+// intervalSubject$.subscribe(createSubscriber("sub2"));
+// intervalSubject$.subscribe(createSubscriber("sub3"));
+
+// setTimeout(() => {
+//     intervalSubject$.subscribe(createSubscriber("LOOK AT ME!"));
+// }, 3000);
+
+//example 3
+
+var currentUser$ = new _Rx2.default.Subject();
+var isLoggedIn$ = currentUser$.map(function (u) {
+    return u.isLoggedIn;
+});
+
+isLoggedIn$.subscribe((0, _util.createSubscriber)("isLoggedIn"));
+
+currentUser$.next({ isLoggedIn: false });
 
 setTimeout(function () {
-    intervalSubject$.subscribe((0, _util.createSubscriber)("LOOK AT ME!"));
+    currentUser$.next({ isLoggedIn: true, name: "nelson" });
 }, 2000);
+
+setTimeout(function () {
+    isLoggedIn$.subscribe((0, _util.createSubscriber)("delayed"));
+}, 1000);
