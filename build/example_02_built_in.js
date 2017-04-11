@@ -43,3 +43,5 @@ defer$.subscribe((0, _util.createSubscriber)("defer$.two"));
 defer$.subscribe((0, _util.createSubscriber)("defer$.three"));
 
 _Rx2.default.Observable.never().subscribe((0, _util.createSubscriber)("never"));
+
+_Rx2.default.Observable.range(10, 20).subscribe((0, _util.createSubscriber)("range"));

@@ -41,3 +41,6 @@ defer$.subscribe(createSubscriber("defer$.three"));
 
 Rx.Observable.never()
     .subscribe(createSubscriber("never"));
+
+Rx.Observable.range(10,20)
+    .subscribe(createSubscriber("range"));
