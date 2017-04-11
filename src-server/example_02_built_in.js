@@ -38,3 +38,6 @@ const defer$ = Rx.Observable.defer(() => {
 defer$.subscribe(createSubscriber("defer$.one"));
 defer$.subscribe(createSubscriber("defer$.two"));
 defer$.subscribe(createSubscriber("defer$.three"));
+
+Rx.Observable.never()
+    .subscribe(createSubscriber("never"));

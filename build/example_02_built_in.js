@@ -41,3 +41,5 @@ var defer$ = _Rx2.default.Observable.defer(function () {
 defer$.subscribe((0, _util.createSubscriber)("defer$.one"));
 defer$.subscribe((0, _util.createSubscriber)("defer$.two"));
 defer$.subscribe((0, _util.createSubscriber)("defer$.three"));
+
+_Rx2.default.Observable.never().subscribe((0, _util.createSubscriber)("never"));
