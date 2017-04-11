@@ -12,6 +12,24 @@ var _fs2 = _interopRequireDefault(_fs);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_fs2.default.readdir("./src-server", function (err, items) {
-    if (err) console.error(err);else console.log(items);
-});
+// fs.readdir("./src-server", (err, items) => {
+//     if (err) console.error(err);
+//     else console.log(items);
+// });
+
+// const readdir$ = Rx.Observable.bindNodeCallback(fs.readdir);
+
+// readdir$("./src-server")
+//     .mergeMap(files => Rx.Observable.from(files))
+//     .map(file => `MANIPULATED ${file}`)
+//     .subscribe(createSubscriber("readdir"));
+
+function getItem() {
+    return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            resolve("HELLO");
+        }, 1000);
+    });
+}
+
+_Rx2.default.Observable.fromPromise(getItem()).subscribe((0, _util.createSubscriber)("promise"));
