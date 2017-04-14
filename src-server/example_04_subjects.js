@@ -28,7 +28,7 @@ import {createSubscriber} from "./lib/util";
 
 //example 3
 
-const currentUser$ = new Rx.Subject();
+const currentUser$ = new Rx.BehaviorSubject();
 const isLoggedIn$ = currentUser$.map(u => u.isLoggedIn);
 
 isLoggedIn$.subscribe(createSubscriber("isLoggedIn"));
