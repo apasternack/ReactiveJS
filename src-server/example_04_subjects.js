@@ -28,17 +28,32 @@ import {createSubscriber} from "./lib/util";
 
 //example 3
 
-const currentUser$ = new Rx.BehaviorSubject({isLoggedIn: false});  //BehaviorSubject expects you enter the initial state
-const isLoggedIn$ = currentUser$.map(u => u.isLoggedIn);
+// const currentUser$ = new Rx.BehaviorSubject({isLoggedIn: false});  //BehaviorSubject expects you enter the initial state
+// const isLoggedIn$ = currentUser$.map(u => u.isLoggedIn);
 
-currentUser$.next({ isLoggedIn: false });
+// currentUser$.next({ isLoggedIn: false });
 
-isLoggedIn$.subscribe(createSubscriber("isLoggedIn"));
+// isLoggedIn$.subscribe(createSubscriber("isLoggedIn"));
 
-setTimeout(() => {
-    currentUser$.next({isLoggedIn: true, name: "nelson" });
-}, 3000);
+// setTimeout(() => {
+//     currentUser$.next({isLoggedIn: true, name: "nelson" });
+// }, 3000);
 
-setTimeout(() => {
-    isLoggedIn$.subscribe(createSubscriber("delayed"));
-}, 1500);
+// setTimeout(() => {
+//     isLoggedIn$.subscribe(createSubscriber("delayed"));
+// }, 1500);
+
+
+//Example 4
+
+const replay$ = new Rx.ReplaySubject(3);
+replay$.next(1);
+replay$.next(2);
+
+replay$.subscribe(createSubscriber("one"));
+
+replay$.next(3);
+replay$.next(4);
+replay$.next(5);
+
+replay$.subscribe(createSubscriber("one"));

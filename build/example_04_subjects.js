@@ -35,19 +35,32 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 //example 3
 
-var currentUser$ = new _Rx2.default.BehaviorSubject({ isLoggedIn: false }); //BehaviorSubject expects you enter the initial state
-var isLoggedIn$ = currentUser$.map(function (u) {
-    return u.isLoggedIn;
-});
+// const currentUser$ = new Rx.BehaviorSubject({isLoggedIn: false});  //BehaviorSubject expects you enter the initial state
+// const isLoggedIn$ = currentUser$.map(u => u.isLoggedIn);
 
-currentUser$.next({ isLoggedIn: false });
+// currentUser$.next({ isLoggedIn: false });
 
-isLoggedIn$.subscribe((0, _util.createSubscriber)("isLoggedIn"));
+// isLoggedIn$.subscribe(createSubscriber("isLoggedIn"));
 
-setTimeout(function () {
-    currentUser$.next({ isLoggedIn: true, name: "nelson" });
-}, 3000);
+// setTimeout(() => {
+//     currentUser$.next({isLoggedIn: true, name: "nelson" });
+// }, 3000);
 
-setTimeout(function () {
-    isLoggedIn$.subscribe((0, _util.createSubscriber)("delayed"));
-}, 1500);
+// setTimeout(() => {
+//     isLoggedIn$.subscribe(createSubscriber("delayed"));
+// }, 1500);
+
+
+//Example 4
+
+var replay$ = new _Rx2.default.ReplaySubject(3);
+replay$.next(1);
+replay$.next(2);
+
+replay$.subscribe((0, _util.createSubscriber)("one"));
+
+replay$.next(3);
+replay$.next(4);
+replay$.next(5);
+
+replay$.subscribe((0, _util.createSubscriber)("one"));
