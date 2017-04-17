@@ -35,7 +35,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 //example 3
 
-var currentUser$ = new _Rx2.default.Subject();
+var currentUser$ = new _Rx2.default.BehaviorSubject({ isLoggedIn: false });
 var isLoggedIn$ = currentUser$.map(function (u) {
     return u.isLoggedIn;
 });
