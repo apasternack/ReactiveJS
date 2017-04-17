@@ -35,19 +35,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 //example 3
 
-var currentUser$ = new _Rx2.default.BehaviorSubject({ isLoggedIn: false });
+var currentUser$ = new _Rx2.default.BehaviorSubject({ isLoggedIn: false }); //BehaviorSubject expects you enter the initial state
 var isLoggedIn$ = currentUser$.map(function (u) {
     return u.isLoggedIn;
 });
 
-isLoggedIn$.subscribe((0, _util.createSubscriber)("isLoggedIn"));
-
 currentUser$.next({ isLoggedIn: false });
+
+isLoggedIn$.subscribe((0, _util.createSubscriber)("isLoggedIn"));
 
 setTimeout(function () {
     currentUser$.next({ isLoggedIn: true, name: "nelson" });
-}, 2000);
+}, 3000);
 
 setTimeout(function () {
     isLoggedIn$.subscribe((0, _util.createSubscriber)("delayed"));
-}, 1000);
+}, 1500);
