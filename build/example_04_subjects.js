@@ -62,8 +62,7 @@ replay$.subscribe((0, _util.createSubscriber)("one"));
 replay$.next(3);
 replay$.next(4);
 replay$.next(5);
-replay$.next(6);
 
 replay$.subscribe((0, _util.createSubscriber)("two"));
 
-replay$.next(7);
+replay$.next(6);
