@@ -46,16 +46,28 @@ import {createSubscriber} from "./lib/util";
 
 //Example 4
 
-const replay$ = new Rx.ReplaySubject(3);
-replay$.next(1);
-replay$.next(2);
+// const replay$ = new Rx.ReplaySubject(3);
+// replay$.next(1);
+// replay$.next(2);
 
-replay$.subscribe(createSubscriber("one"));
+// replay$.subscribe(createSubscriber("one"));
 
-replay$.next(3);
-replay$.next(4);
-replay$.next(5);
+// replay$.next(3);
+// replay$.next(4);
+// replay$.next(5);
 
-replay$.subscribe(createSubscriber("two"));
+// replay$.subscribe(createSubscriber("two"));
 
-replay$.next(6);
+// replay$.next(6);
+
+// Example 5 Async Subject
+
+const apiCall$ = new Rx.AsyncSubject();
+apiCall$.next(1);
+
+apiCall$.subscribe(createSubscriber("one"));
+apiCall$.next(2);
+
+setTimeout(() => {
+    apiCall$.subscribe(createSubscriber("one"));
+}, 2000);

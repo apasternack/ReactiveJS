@@ -53,16 +53,28 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 //Example 4
 
-var replay$ = new _Rx2.default.ReplaySubject(3);
-replay$.next(1);
-replay$.next(2);
+// const replay$ = new Rx.ReplaySubject(3);
+// replay$.next(1);
+// replay$.next(2);
 
-replay$.subscribe((0, _util.createSubscriber)("one"));
+// replay$.subscribe(createSubscriber("one"));
 
-replay$.next(3);
-replay$.next(4);
-replay$.next(5);
+// replay$.next(3);
+// replay$.next(4);
+// replay$.next(5);
 
-replay$.subscribe((0, _util.createSubscriber)("two"));
+// replay$.subscribe(createSubscriber("two"));
 
-replay$.next(6);
+// replay$.next(6);
+
+// Example 5 Async Subject
+
+var apiCall$ = new _Rx2.default.AsyncSubject();
+apiCall$.next(1);
+
+apiCall$.subscribe((0, _util.createSubscriber)("one"));
+apiCall$.next(2);
+
+setTimeout(function () {
+    apiCall$.subscribe((0, _util.createSubscriber)("one"));
+}, 2000);
