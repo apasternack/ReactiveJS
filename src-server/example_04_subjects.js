@@ -55,5 +55,9 @@ replay$.subscribe(createSubscriber("one"));
 replay$.next(3);
 replay$.next(4);
 replay$.next(5);
+replay$.next(6);
 
-replay$.subscribe(createSubscriber("one"));
+
+replay$.subscribe(createSubscriber("two"));
+
+replay$.next(7);
