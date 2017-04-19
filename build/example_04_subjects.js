@@ -74,7 +74,8 @@ apiCall$.next(1);
 
 apiCall$.subscribe((0, _util.createSubscriber)("one"));
 apiCall$.next(2);
+apiCall$.complete(); //this activates the async subject which does not get triggered by subscriptions until this function is invoked
 
 setTimeout(function () {
-    apiCall$.subscribe((0, _util.createSubscriber)("one"));
+    apiCall$.subscribe((0, _util.createSubscriber)("two"));
 }, 2000);
