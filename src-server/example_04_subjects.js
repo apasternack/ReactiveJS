@@ -60,7 +60,9 @@ import {createSubscriber} from "./lib/util";
 
 // replay$.next(6);
 
-// Example 5 Async Subject
+// Example 5 Async Subject  
+    // Nothing emitted to subscribers until complete() is called.  Then the last item from the observable is emitted OR if 
+    // a subscriber just subscribes, the last item is emitted
 
 const apiCall$ = new Rx.AsyncSubject();
 apiCall$.next(1);
