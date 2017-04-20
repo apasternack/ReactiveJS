@@ -67,7 +67,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // replay$.next(6);
 
-// Example 5 Async Subject
+// Example 5 Async Subject  
+// Nothing emitted to subscribers until complete() is called.  Then the last item from the observable is emitted OR if 
+// a subscriber just subscribes, the last item is emitted
 
 var apiCall$ = new _Rx2.default.AsyncSubject();
 apiCall$.next(1);

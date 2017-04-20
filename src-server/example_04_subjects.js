@@ -74,3 +74,5 @@ apiCall$.complete();  //this activates the async subject which does not get trig
 setTimeout(() => {
     apiCall$.subscribe(createSubscriber("two"));
 }, 2000);
+
+const currentUser$ = Rx.Observable.fromEvent(socket, "login");
